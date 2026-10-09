@@ -31,6 +31,24 @@
   h2.sekce{text-align:center;margin:30px 0 14px;font-size:clamp(22px,4.2vw,32px)}
   #testy a.card{border-width:3px;box-shadow:0 0 0 2px #ffd35a33}
   footer{text-align:center;color:var(--muted);margin-top:30px;font-size:14px}
+  .radek{display:flex;gap:10px;align-items:stretch;margin-bottom:14px}
+  .radek a.card{flex:1;margin-bottom:0;min-width:0}
+  .short{flex:none;width:92px;border-radius:16px;border:2px solid #ff4a6a;background:#000 center/cover no-repeat;position:relative;cursor:pointer;overflow:hidden;padding:0;transition:transform .12s}
+  .short:hover{transform:translateY(-2px)}
+  .short::after{content:'';position:absolute;inset:0;background:linear-gradient(transparent 45%,rgba(0,0,0,.85))}
+  .short span{position:absolute;left:0;right:0;bottom:8px;z-index:1;text-align:center;font:900 13px 'Segoe UI',Arial,sans-serif;color:#fff;letter-spacing:.5px}
+  .short b{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);z-index:1;width:36px;height:36px;border-radius:50%;background:#ff2a4a;color:#fff;font-size:15px;display:flex;align-items:center;justify-content:center;padding-left:3px;box-sizing:border-box}
+  .shorty{display:flex;flex-direction:column;gap:8px}
+  .shorty .short{flex:1}
+  @media(max-width:560px){.short{width:70px}.em{display:none}.short span{font-size:11px}}
+  #sv{position:fixed;inset:0;background:rgba(5,8,14,.92);display:none;align-items:center;justify-content:center;z-index:50}
+  #sv.on{display:flex}
+  #sv video{height:min(88vh,160vw);aspect-ratio:9/16;max-width:94vw;border-radius:18px;background:#000;box-shadow:0 10px 50px #000}
+  #sv .x{position:absolute;top:14px;right:18px;font-size:38px;color:#fff;background:none;border:0;cursor:pointer}
+  #sv .pr{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(6vh - 10px);width:min(49.5vh,90vw);height:5px;background:#ffffff33;border-radius:3px;overflow:hidden}
+  #sv .pr i{display:block;height:100%;width:0;background:#ff2a4a}
+  #sv .ik{position:absolute;font-size:64px;color:#fff;opacity:0;transition:opacity .3s;pointer-events:none}
+  #sv.pauza .ik{opacity:.8}
 </style>
 </head>
 <body>
@@ -193,6 +211,29 @@
 
   <footer>Vyrobeno s pomocí AI (Claude). Obrázky, hudba i hlasy jsou vytvořené počítačem.</footer>
 </div>
+<div id="sv"><button class="x" aria-label="Zavřít">✕</button><video playsinline></video><div class="ik">▶</div><div class="pr"><i></i></div></div>
+<script>
+// Shorty: ke každému videu vpravo svislý náhled jeho Shortu (shorts/<klic>.mp4 + .jpg), přehraje se přímo tady
+(function () {
+  const SHORTY = { 'ryby': ['ryby'], 'anglictina-unit5': ['anglictina-unit5'], 'stehovani-narodu': ['stredovek', 'stehovani-narodu'], 'strunatci': ['strunatci'],
+    'poznavacka-hmyzu': ['poznavacka-hmyzu'], 'poznavacka-bezobratlych': ['poznavacka-bezobratlych'], 'krecik-dzungarsky': ['krecik-dzungarsky'],
+    'afrika': ['afrika'], 'evropa': ['evropa'], 'staroveky-rim': ['staroveky-rim'], 'literarni-zanry': ['literarni-zanry'] };
+  const sv = document.getElementById('sv'), v = sv.querySelector('video'), bar = sv.querySelector('.pr i');
+  const zavri = () => { v.pause(); sv.classList.remove('on', 'pauza'); v.removeAttribute('src'); v.load(); };
+  const otevri = k => { v.src = 'shorts/' + k + '.mp4'; v.muted = false; sv.classList.add('on'); sv.classList.remove('pauza'); v.play().catch(() => sv.classList.add('pauza')); };
+  v.addEventListener('click', e => { e.stopPropagation(); if (v.paused) { v.play(); sv.classList.remove('pauza'); } else { v.pause(); sv.classList.add('pauza'); } });
+  v.addEventListener('timeupdate', () => { if (v.duration) bar.style.width = (v.currentTime / v.duration * 100) + '%'; });
+  v.addEventListener('ended', () => sv.classList.add('pauza'));
+  sv.addEventListener('click', zavri); sv.querySelector('.x').addEventListener('click', zavri);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && sv.classList.contains('on')) zavri(); });
+  document.querySelectorAll('a.card').forEach(c => {
+    const m = c.href.match(/github\.io\/([^\/]+)\//); const s = m && SHORTY[m[1]]; if (!s) return;
+    const r = document.createElement('div'); r.className = 'radek'; c.parentNode.insertBefore(r, c); r.appendChild(c);
+    const sl = document.createElement('div'); sl.className = 'shorty'; r.appendChild(sl);
+    s.forEach(k => { const b = document.createElement('button'); b.className = 'short'; b.title = 'Pustit Short'; b.style.backgroundImage = "url('shorts/" + k + ".jpg')"; b.innerHTML = '<b>▶</b><span>SHORT</span>'; b.addEventListener('click', () => otevri(k)); sl.appendChild(b); });
+  });
+})();
+</script>
 <script>
 // Testy: karta s data-test="RRRR-MM-DD" -> nadcházející testy nahoru (nejbližší první) s odpočtem dní
 (function () {
@@ -215,7 +256,7 @@
   });
   if (nadch.length) {
     const h = document.createElement('h2'); h.className = 'sekce'; h.textContent = '📝 Nejbližší testy – uč se!'; box.appendChild(h);
-    nadch.sort((a, b) => a[0] - b[0]).forEach(x => box.appendChild(x[1]));
+    nadch.sort((a, b) => a[0] - b[0]).forEach(x => box.appendChild(x[1].closest('.radek') || x[1]));
   } else document.getElementById('vse-nadpis').remove();
 })();
 </script>
