@@ -23,6 +23,13 @@
   .ds{color:var(--muted);font-size:15px}
   .meta{font-size:13px;color:#7f8ea6;margin-top:4px}
   .go{flex:none;font-weight:900;font-size:15px;padding:9px 14px;border-radius:999px;background:#2a3550;color:#0f1420}
+  .test{display:inline-block;margin:0 0 6px;padding:3px 12px;border-radius:999px;font-weight:900;font-size:14px;background:#ffd35a;color:#1a1206}
+  .test.brzy{background:#ff6a5a;color:#fff}
+  .test.dnes{background:#ff2a4a;color:#fff;animation:blik 1s infinite alternate}
+  .test.byl{background:#2b3550;color:#9aa9be}
+  @keyframes blik{to{opacity:.55}}
+  h2.sekce{text-align:center;margin:30px 0 14px;font-size:clamp(22px,4.2vw,32px)}
+  #testy a.card{border-width:3px;box-shadow:0 0 0 2px #ffd35a33}
   footer{text-align:center;color:var(--muted);margin-top:30px;font-size:14px}
 </style>
 </head>
@@ -32,7 +39,11 @@
     <div class="icons">🎬📚🧪</div>
     <h1>Naše výuková videa</h1>
     <div class="sub">klikni na video a pusť si ho · funguje i na mobilu</div>
+    <div class="sub" id="dnes"></div>
   </header>
+
+  <div id="testy"></div>
+  <h2 class="sekce" id="vse-nadpis">🎬 Všechna videa</h2>
 
   <a class="card" style="border-color:#ffd35a" href="https://luciehavrankovacz-hub.github.io/anglictina-unit5/">
     <div class="em">🇬🇧</div>
@@ -42,7 +53,7 @@
     <div class="go" style="background:#ffd35a;color:#101e3a">PUSTIT</div>
   </a>
 
-  <a class="card" style="border-color:#d8583a" href="https://luciehavrankovacz-hub.github.io/stehovani-narodu/">
+  <a class="card" data-test="2026-10-15" style="border-color:#d8583a" href="https://luciehavrankovacz-hub.github.io/stehovani-narodu/">
     <div class="em">🏛️</div>
     <div class="tx"><p class="tt">Stěhování národů – kdo zničil Řím?</p>
       <div class="ds">Hunové, Attila, rok 476 – konec starověku, kam došli Germáni, Slované a jejich tři větve + kvíz a mapa</div>
@@ -66,7 +77,7 @@
     <div class="go" style="background:#8ac46a;color:#10151e">PUSTIT</div>
   </a>
 
-  <a class="card" style="border-color:#d0a040" href="https://luciehavrankovacz-hub.github.io/poznavacka-bezobratlych/">
+  <a class="card" data-test="2026-11-06" style="border-color:#d0a040" href="https://luciehavrankovacz-hub.github.io/poznavacka-bezobratlych/">
     <div class="em">🐌</div>
     <div class="tx"><p class="tt">Poznávačka bezobratlých</p>
       <div class="ds">46 druhů – kroužkovci, měkkýši, pavoukovci, korýši a hmyz, fotka a 5 vteřin na odpověď</div>
@@ -174,5 +185,31 @@
 
   <footer>Vyrobeno s pomocí AI (Claude). Obrázky, hudba i hlasy jsou vytvořené počítačem.</footer>
 </div>
+<script>
+// Testy: karta s data-test="RRRR-MM-DD" -> nadcházející testy nahoru (nejbližší první) s odpočtem dní
+(function () {
+  const dnes = new Date(); dnes.setHours(0, 0, 0, 0);
+  const dny = ['neděle', 'pondělí', 'úterý', 'středa', 'čtvrtek', 'pátek', 'sobota'];
+  document.getElementById('dnes').textContent = 'Dnes je ' + dny[dnes.getDay()] + ' ' + dnes.getDate() + '. ' + (dnes.getMonth() + 1) + '. ' + dnes.getFullYear();
+  const box = document.getElementById('testy'), nadch = [];
+  document.querySelectorAll('a.card[data-test]').forEach(c => {
+    const p = c.dataset.test.split('-').map(Number), d = new Date(p[0], p[1] - 1, p[2]);
+    const n = Math.round((d - dnes) / 86400000), datum = p[2] + '. ' + p[1] + '.';
+    const b = document.createElement('div'); b.className = 'test';
+    if (n < 0) { b.className += ' byl'; b.textContent = '✔ test byl ' + datum; }
+    else {
+      if (n === 0) { b.className += ' dnes'; b.textContent = '📝 TEST JE DNES!'; }
+      else if (n === 1) { b.className += ' brzy'; b.textContent = '📝 Test ZÍTRA (' + datum + ')'; }
+      else { if (n <= 3) b.className += ' brzy'; b.textContent = '📝 Test za ' + n + (n < 5 ? ' dny' : ' dní') + ' (' + dny[d.getDay()] + ' ' + datum + ')'; }
+      nadch.push([n, c]);
+    }
+    c.querySelector('.tx').prepend(b);
+  });
+  if (nadch.length) {
+    const h = document.createElement('h2'); h.className = 'sekce'; h.textContent = '📝 Nejbližší testy – uč se!'; box.appendChild(h);
+    nadch.sort((a, b) => a[0] - b[0]).forEach(x => box.appendChild(x[1]));
+  } else document.getElementById('vse-nadpis').remove();
+})();
+</script>
 </body>
 </html>
