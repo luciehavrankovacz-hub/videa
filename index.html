@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="cs" data-verze="34">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -50,6 +50,16 @@
   #sv .ik{position:absolute;font-size:64px;color:#fff;opacity:0;transition:opacity .3s;pointer-events:none}
   #sv.pauza .ik{opacity:.8}
 </style>
+<script>
+// Chrome někdy ukáže starou zapamatovanou verzi -> zjisti verzi na webu a případně se obnov (data-verze zvyšovat při každé změně)
+(function () {
+  const ted = document.documentElement.dataset.verze;
+  fetch(location.pathname + "?nc=" + Date.now(), { cache: "no-store" }).then(r => r.text()).then(t => {
+    const m = t.match(/data-verze="(\d+)"/);
+    if (m && m[1] !== ted) { try { if (sessionStorage.getItem("obnoveno" + m[1])) return; sessionStorage.setItem("obnoveno" + m[1], "1"); } catch (e) {} location.replace(location.pathname + "?v=" + m[1]); }
+  }).catch(() => {});
+})();
+</script>
 </head>
 <body>
 <div class="wrap">
