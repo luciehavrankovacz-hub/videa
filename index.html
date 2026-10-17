@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="cs" data-verze="38">
+<html lang="cs" data-verze="39">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -72,6 +72,14 @@
 
   <div id="testy"></div>
   <h2 class="sekce" id="vse-nadpis">🎬 Všechna videa</h2>
+
+  <a class="card" data-test="2026-10-20" style="border-color:#f0a040" href="https://luciehavrankovacz-hub.github.io/sahel/">
+    <div class="em">🐪</div>
+    <div class="tx"><p class="tt">Sahel a Severní Afrika</p>
+      <div class="ds">karavanou přes Saharu: 5 států severu, Atlas, Nil a oázy, Berbeři a Tuaregové, pyramidy a chrámy, Sahel, desertifikace a chudoba + kvíz 12 otázek</div>
+      <div class="meta">15 minut · průvodce Kapitán Glóbus · NEPTUN PRO</div></div>
+    <div class="go" style="background:#f0a040">PUSTIT</div>
+  </a>
 
   <a class="card" data-test="2026-10-19" style="border-color:#3fb8d8" href="https://luciehavrankovacz-hub.github.io/ryby/">
     <div class="em">🐟</div>
@@ -233,7 +241,7 @@
 <script>
 // Shorty: ke každému videu vpravo svislý náhled jeho Shortu (shorts/<klic>.mp4 + .jpg), přehraje se přímo tady
 (function () {
-  const SHORTY = { 'ryby': ['ryby'], 'anglictina-unit5': ['anglictina-unit5'], 'stehovani-narodu': ['stredovek', 'stehovani-narodu'], 'strunatci': ['strunatci'],
+  const SHORTY = { 'sahel': ['sahel'], 'ryby': ['ryby'], 'anglictina-unit5': ['anglictina-unit5'], 'stehovani-narodu': ['stredovek', 'stehovani-narodu'], 'strunatci': ['strunatci'],
     'poznavacka-hmyzu': ['poznavacka-hmyzu'], 'poznavacka-bezobratlych': ['poznavacka-bezobratlych'], 'krecik-dzungarsky': ['krecik-dzungarsky'],
     'afrika': ['afrika'], 'evropa': ['evropa'], 'staroveky-rim': ['staroveky-rim'], 'literarni-zanry': ['literarni-zanry'] };
   const sv = document.getElementById('sv'), v = sv.querySelector('video'), bar = sv.querySelector('.pr i');
