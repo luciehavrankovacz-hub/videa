@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="cs" data-verze="39">
+<html lang="cs" data-verze="40">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Cache-Control" content="no-cache">
 <title>Naše výuková videa</title>
 <style>
   :root{--bg:#0f1420;--panel:#1a2235;--ink:#eaf0f8;--muted:#9aa9be}
@@ -51,15 +52,28 @@
   #sv.pauza .ik{opacity:.8}
 </style>
 <script>
-// Chrome někdy ukáže starou zapamatovanou verzi -> zjisti verzi na webu a případně se obnov (data-verze zvyšovat při každé změně)
+// Mobil/Chrome někdy ukáže starou zapamatovanou verzi -> zjisti verzi na webu a případně se obnov (data-verze zvyšovat při každé změně).
+// Kontroluje se při otevření i při návratu do karty. Proti zacyklení: na stejné číslo verze (?v=N v adrese) se obnoví nejvýš jednou.
 (function () {
   const ted = document.documentElement.dataset.verze;
-  fetch(location.pathname + "?nc=" + Date.now(), { cache: "no-store" }).then(r => r.text()).then(t => {
-    const m = t.match(/data-verze="(\d+)"/);
-    if (m && m[1] !== ted && location.search.indexOf("obnov=1") < 0) location.replace(location.pathname + "?v=" + m[1] + "&obnov=1"); // nejvýš jedno obnovení, nikdy dokola
-  }).catch(() => {});
+  let posledni = 0;
+  function zkontroluj() {
+    if (Date.now() - posledni < 5000) return; posledni = Date.now();
+    fetch(location.pathname + "?nc=" + Date.now(), { cache: "no-store" }).then(r => r.text()).then(t => {
+      const m = t.match(/data-verze="(\d+)"/);
+      if (!m || m[1] === ted) return;
+      const v = new URLSearchParams(location.search).get("v");
+      if (v === m[1]) return; // už jsme se na tuhle verzi obnovovali -> nedělat to dokola
+      location.replace(location.pathname + "?v=" + m[1] + location.hash);
+    }).catch(() => {});
+  }
+  zkontroluj();
+  window.addEventListener("pageshow", e => { if (e.persisted) zkontroluj(); });
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") zkontroluj(); });
+  window.addEventListener("focus", zkontroluj);
 })();
 </script>
+
 </head>
 <body>
 <div class="wrap">
