@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="cs" data-verze="40">
+<html lang="cs" data-verze="41">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -86,6 +86,14 @@
 
   <div id="testy"></div>
   <h2 class="sekce" id="vse-nadpis">🎬 Všechna videa</h2>
+
+  <a class="card" data-test="2026-11-03" style="border-color:#5ad0a0" href="https://luciehavrankovacz-hub.github.io/zlomky/">
+    <div class="em">🧮</div>
+    <div class="tx"><p class="tt">Zlomky a desetinná čísla – trénink na čtvrtletku</p>
+      <div class="ds">plus, mínus, krát a děleno: společný jmenovatel, krácení do kříže, převrácený zlomek, čárka pod čárkou, pasti + zkušební čtvrtletka 12 příkladů</div>
+      <div class="meta">16 minut · průvodce profesor Kalkulačka · NEPTUN PRO</div></div>
+    <div class="go" style="background:#5ad0a0">PUSTIT</div>
+  </a>
 
   <a class="card" data-test="2026-10-20" style="border-color:#f0a040" href="https://luciehavrankovacz-hub.github.io/sahel/">
     <div class="em">🐪</div>
@@ -255,7 +263,7 @@
 <script>
 // Shorty: ke každému videu vpravo svislý náhled jeho Shortu (shorts/<klic>.mp4 + .jpg), přehraje se přímo tady
 (function () {
-  const SHORTY = { 'sahel': ['sahel'], 'ryby': ['ryby'], 'anglictina-unit5': ['anglictina-unit5'], 'stehovani-narodu': ['stredovek', 'stehovani-narodu'], 'strunatci': ['strunatci'],
+  const SHORTY = { 'zlomky': ['zlomky'], 'sahel': ['sahel'], 'ryby': ['ryby'], 'anglictina-unit5': ['anglictina-unit5'], 'stehovani-narodu': ['stredovek', 'stehovani-narodu'], 'strunatci': ['strunatci'],
     'poznavacka-hmyzu': ['poznavacka-hmyzu'], 'poznavacka-bezobratlych': ['poznavacka-bezobratlych'], 'krecik-dzungarsky': ['krecik-dzungarsky'],
     'afrika': ['afrika'], 'evropa': ['evropa'], 'staroveky-rim': ['staroveky-rim'], 'literarni-zanry': ['literarni-zanry'] };
   const sv = document.getElementById('sv'), v = sv.querySelector('video'), bar = sv.querySelector('.pr i');
