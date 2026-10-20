@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="cs" data-verze="41">
+<html lang="cs" data-verze="42">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,6 +31,22 @@
   @keyframes blik{to{opacity:.55}}
   h2.sekce{text-align:center;margin:30px 0 14px;font-size:clamp(22px,4.2vw,32px)}
   #testy a.card{border-width:3px;box-shadow:0 0 0 2px #ffd35a33}
+  .upr{margin-top:12px;font:800 15px 'Segoe UI',Arial,sans-serif;padding:8px 16px;border-radius:999px;border:2px solid #ffd35a;background:transparent;color:#ffd35a;cursor:pointer}
+  body.uprava .upr{background:#ffd35a;color:#1a1206}
+  .pero{display:none;flex:none;font:800 14px 'Segoe UI',Arial,sans-serif;padding:8px 12px;border-radius:12px;border:2px solid #ffd35a;background:#2a2410;color:#ffd35a;cursor:pointer}
+  body.uprava .pero{display:block}
+  #dlg{border:3px solid #ffd35a;border-radius:18px;background:#1a2235;color:#eaf0f8;padding:20px 22px;width:min(440px,92vw);font-family:'Segoe UI',Arial,sans-serif}
+  #dlg::backdrop{background:rgba(5,8,14,.75)}
+  #dlg h3{margin:0 0 4px;color:#ffd35a}
+  #dlg .nz{color:#9aa9be;margin-bottom:14px}
+  #dlg input[type=date]{font-size:20px;padding:8px 10px;border-radius:10px;border:2px solid #2b3550;width:100%;box-sizing:border-box}
+  #dlg label{display:block;margin:12px 0}
+  #dlg .tl{display:flex;gap:10px;margin-top:14px}
+  #dlg .tl button{flex:1;font:800 16px 'Segoe UI',Arial,sans-serif;padding:11px;border-radius:12px;border:0;cursor:pointer}
+  #dlg .ok{background:#2aa85a;color:#fff} #dlg .ne{background:#2b3550;color:#eaf0f8}
+  #dlg .st{margin-top:12px;min-height:20px;font-weight:700;color:#ffd35a}
+  #dlg details{margin-top:14px;color:#9aa9be;font-size:14px} #dlg details input{width:100%;box-sizing:border-box;padding:8px;border-radius:8px;border:2px solid #2b3550;margin:6px 0}
+  #dlg details button{font:700 14px 'Segoe UI',Arial,sans-serif;padding:7px 12px;border-radius:8px;border:0;background:#3a4a6a;color:#fff;cursor:pointer}
   footer{text-align:center;color:var(--muted);margin-top:30px;font-size:14px}
   .radek{display:flex;gap:10px;align-items:stretch;margin-bottom:14px}
   .radek a.card{flex:1;margin-bottom:0;min-width:0}
@@ -82,6 +98,7 @@
     <h1>Naše výuková videa</h1>
     <div class="sub">klikni na video a pusť si ho · funguje i na mobilu</div>
     <div class="sub" id="dnes"></div>
+    <button class="upr" id="upr" type="button">✏️ Změnit termíny testů</button>
   </header>
 
   <div id="testy"></div>
@@ -282,30 +299,125 @@
   });
 })();
 </script>
+<dialog id="dlg">
+  <h3>📝 Termín testu</h3>
+  <div class="nz" id="dlgNazev"></div>
+  <input type="date" id="dlgDatum">
+  <label><input type="checkbox" id="dlgBez"> bez testu (smazat termín)</label>
+  <div class="tl"><button class="ok" id="dlgOk" type="button">💾 Uložit</button><button class="ne" id="dlgNe" type="button">Zrušit</button></div>
+  <div class="st" id="dlgSt"></div>
+  <details id="dlgKlic"><summary>🔑 Klíč, aby změnu viděli všichni</summary>
+    <div id="klicStav"></div>
+    <input type="password" id="klicVstup" placeholder="sem vlož klíč z GitHubu (začíná github_pat_)" autocomplete="off">
+    <button type="button" id="klicUloz">Uložit klíč na tomhle zařízení</button> <button type="button" id="klicSmaz">Smazat klíč</button>
+  </details>
+</dialog>
 <script>
-// Testy: karta s data-test="RRRR-MM-DD" -> nadcházející testy nahoru (nejbližší první) s odpočtem dní
+// Testy: karta s data-test="RRRR-MM-DD" -> nadcházející testy nahoru (nejbližší první) s odpočtem dní.
+// Termíny jdou měnit přímo tady (✏️). Platné termíny jsou v terminy.json (přednost před data-test v HTML; "" = bez testu).
+// Uložení pro všechny = zápis terminy.json přes GitHub API klíčem, který si majitel uloží jen na svém zařízení (localStorage).
 (function () {
+  const REPO = 'luciehavrankovacz-hub/videa', SOUBOR = 'terminy.json';
   const dnes = new Date(); dnes.setHours(0, 0, 0, 0);
   const dny = ['neděle', 'pondělí', 'úterý', 'středa', 'čtvrtek', 'pátek', 'sobota'];
   document.getElementById('dnes').textContent = 'Dnes je ' + dny[dnes.getDay()] + ' ' + dnes.getDate() + '. ' + (dnes.getMonth() + 1) + '. ' + dnes.getFullYear();
-  const box = document.getElementById('testy'), nadch = [];
-  document.querySelectorAll('a.card[data-test]').forEach(c => {
-    const p = c.dataset.test.split('-').map(Number), d = new Date(p[0], p[1] - 1, p[2]);
-    const n = Math.round((d - dnes) / 86400000), datum = p[2] + '. ' + p[1] + '.';
-    const b = document.createElement('div'); b.className = 'test';
-    if (n < 0) { b.className += ' byl'; b.textContent = '✔ test byl ' + datum; }
-    else {
-      if (n === 0) { b.className += ' dnes'; b.textContent = '📝 TEST JE DNES!'; }
-      else if (n === 1) { b.className += ' brzy'; b.textContent = '📝 Test ZÍTRA (' + datum + ')'; }
-      else { if (n <= 3) b.className += ' brzy'; b.textContent = '📝 Test za ' + n + (n < 5 ? ' dny' : ' dní') + ' (' + dny[d.getDay()] + ' ' + datum + ')'; }
-      nadch.push([n, c]);
-    }
-    c.querySelector('.tx').prepend(b);
+  const box = document.getElementById('testy'), vseNadpis = document.getElementById('vse-nadpis');
+  const ls = { get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) { } } };
+  const slug = c => { const m = c.href.match(/github\.io\/([^\/?#]+)/); return m ? m[1] : c.href; };
+  const karty = [...document.querySelectorAll('a.card')];
+  karty.forEach(c => { c.dataset.html = c.dataset.test || ''; const mv = c.closest('.radek') || c; const k = document.createComment('k'); mv.before(k); c._mv = mv; c._kotva = k; });
+  let web = {};       // terminy.json z webu
+  let mistni = {};    // změny jen na tomhle zařízení: slug -> {d, puv}
+  try { mistni = JSON.parse(ls.get('terminy_mistni') || '{}') || {}; } catch (e) { mistni = {}; }
+  const webHodnota = c => Object.prototype.hasOwnProperty.call(web, slug(c)) ? web[slug(c)] : c.dataset.html;
+  function aktualni(c) { const m = mistni[slug(c)]; return m ? m.d : webHodnota(c); }
+  function serad() {
+    document.querySelectorAll('.test').forEach(b => b.remove());
+    box.innerHTML = '';
+    karty.forEach(c => { c._kotva.after(c._mv); const d = aktualni(c); if (d) c.dataset.test = d; else delete c.dataset.test; });
+    const nadch = [];
+    karty.forEach(c => {
+      if (!c.dataset.test) return;
+      const p = c.dataset.test.split('-').map(Number), d = new Date(p[0], p[1] - 1, p[2]);
+      const n = Math.round((d - dnes) / 86400000), datum = p[2] + '. ' + p[1] + '.';
+      const b = document.createElement('div'); b.className = 'test';
+      if (n < 0) { b.className += ' byl'; b.textContent = '✔ test byl ' + datum; }
+      else {
+        if (n === 0) { b.className += ' dnes'; b.textContent = '📝 TEST JE DNES!'; }
+        else if (n === 1) { b.className += ' brzy'; b.textContent = '📝 Test ZÍTRA (' + datum + ')'; }
+        else { if (n <= 3) b.className += ' brzy'; b.textContent = '📝 Test za ' + n + (n < 5 ? ' dny' : ' dní') + ' (' + dny[d.getDay()] + ' ' + datum + ')'; }
+        nadch.push([n, c]);
+      }
+      c.querySelector('.tx').prepend(b);
+    });
+    if (nadch.length) {
+      const h = document.createElement('h2'); h.className = 'sekce'; h.textContent = '📝 Nejbližší testy – uč se!'; box.appendChild(h);
+      nadch.sort((a, b) => a[0] - b[0]).forEach(x => box.appendChild(x[1]._mv));
+      vseNadpis.style.display = '';
+    } else vseNadpis.style.display = 'none';
+  }
+  serad();
+  fetch(SOUBOR + '?nc=' + Date.now(), { cache: 'no-store' }).then(r => r.ok ? r.json() : {}).then(j => {
+    web = j || {};
+    // místní změna platí jen dokud se na webu nezmění termín jinak
+    Object.keys(mistni).forEach(s => { const c = karty.find(k => slug(k) === s); if (!c || webHodnota(c) !== mistni[s].puv) delete mistni[s]; });
+    ls.set('terminy_mistni', JSON.stringify(mistni));
+    serad();
+  }).catch(() => {});
+
+  // ---------- úpravy ----------
+  const dlg = document.getElementById('dlg'), dDat = document.getElementById('dlgDatum'), dBez = document.getElementById('dlgBez'), dSt = document.getElementById('dlgSt');
+  let edit = null;
+  document.getElementById('upr').addEventListener('click', () => document.body.classList.toggle('uprava'));
+  karty.forEach(c => {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'pero'; b.textContent = '✏️ termín';
+    b.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); otevri(c); });
+    c.appendChild(b);
   });
-  if (nadch.length) {
-    const h = document.createElement('h2'); h.className = 'sekce'; h.textContent = '📝 Nejbližší testy – uč se!'; box.appendChild(h);
-    nadch.sort((a, b) => a[0] - b[0]).forEach(x => box.appendChild(x[1].closest('.radek') || x[1]));
-  } else document.getElementById('vse-nadpis').remove();
+  function klicStav() {
+    document.getElementById('klicStav').textContent = ls.get('gh_klic') ? '✅ Klíč je uložený – změny uvidí všichni.' : 'Bez klíče se změna uloží jen na tomhle zařízení.';
+  }
+  function otevri(c) {
+    edit = c; const d = aktualni(c);
+    document.getElementById('dlgNazev').textContent = c.querySelector('.tt').textContent;
+    dBez.checked = !d; dDat.disabled = !d;
+    if (d) dDat.value = d; else { const t = new Date(Date.now() + 7 * 86400000); dDat.value = t.toISOString().slice(0, 10); }
+    dSt.textContent = ''; klicStav();
+    if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
+  }
+  dBez.addEventListener('change', () => { dDat.disabled = dBez.checked; });
+  document.getElementById('dlgNe').addEventListener('click', () => dlg.close());
+  const b64 = s => btoa(unescape(encodeURIComponent(s)));
+  const z64 = s => decodeURIComponent(escape(atob(s.replace(/\s/g, ''))));
+  async function ulozNaWeb(s, d) {
+    const k = ls.get('gh_klic'); if (!k) return 'mistni';
+    const url = 'https://api.github.com/repos/' + REPO + '/contents/' + SOUBOR, h = { Authorization: 'Bearer ' + k, Accept: 'application/vnd.github+json' };
+    let sha = null, data = {};
+    const r = await fetch(url + '?nc=' + Date.now(), { headers: h, cache: 'no-store' });
+    if (r.status === 200) { const j = await r.json(); sha = j.sha; try { data = JSON.parse(z64(j.content)); } catch (e) { data = {}; } }
+    else if (r.status === 401 || r.status === 403) throw new Error('klíč nefunguje (vypršel nebo nemá právo zapisovat)');
+    else if (r.status !== 404) throw new Error('GitHub odpověděl ' + r.status);
+    data[s] = d;
+    const body = { message: 'Termin testu: ' + s + ' -> ' + (d || 'bez testu'), content: b64(JSON.stringify(data, null, 2) + '\n') };
+    if (sha) body.sha = sha;
+    const w = await fetch(url, { method: 'PUT', headers: h, body: JSON.stringify(body) });
+    if (!w.ok) throw new Error(w.status === 401 || w.status === 403 ? 'klíč nefunguje (vypršel nebo nemá právo zapisovat)' : 'GitHub odpověděl ' + w.status);
+    web = data; return 'web';
+  }
+  document.getElementById('dlgOk').addEventListener('click', async () => {
+    if (!edit) return;
+    const s = slug(edit), d = dBez.checked ? '' : dDat.value;
+    if (!dBez.checked && !/^\d{4}-\d\d-\d\d$/.test(d)) { dSt.textContent = 'Vyber datum v kalendáři.'; return; }
+    mistni[s] = { d: d, puv: webHodnota(edit) }; ls.set('terminy_mistni', JSON.stringify(mistni)); serad();
+    dSt.textContent = 'Ukládám…';
+    try {
+      const kam = await ulozNaWeb(s, d);
+      if (kam === 'web') { delete mistni[s]; ls.set('terminy_mistni', JSON.stringify(mistni)); serad(); dSt.textContent = '✅ Uloženo pro všechny! Kamarádům se to ukáže za 1–2 minuty.'; }
+      else { dSt.textContent = '✅ Změněno na tomhle zařízení. Aby to viděli všichni, vlož dole jednou klíč 🔑.'; document.getElementById('dlgKlic').open = true; }
+    } catch (e) { dSt.textContent = '⚠️ Na tomhle zařízení změněno, ale pro všechny ne: ' + e.message; }
+  });
+  document.getElementById('klicUloz').addEventListener('click', () => { const v = document.getElementById('klicVstup').value.trim(); if (v) { ls.set('gh_klic', v); document.getElementById('klicVstup').value = ''; } klicStav(); });
+  document.getElementById('klicSmaz').addEventListener('click', () => { ls.set('gh_klic', null); klicStav(); });
 })();
 </script>
 </body>
