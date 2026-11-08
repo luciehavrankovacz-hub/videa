@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Byzantská říše</title>
+<style>
+  :root{--bg:#140a1c;--panel:#241630;--line:#46305a;--acc:#f2c14a;--ink:#f3eefa;--muted:#b8a9c8}
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(ellipse at top,#3a2050,var(--bg) 60%);color:var(--ink);font-family:'Segoe UI',Arial,sans-serif;line-height:1.5}
+  .wrap{max-width:1100px;margin:0 auto;padding:22px 16px 60px}
+  header{text-align:center;margin-bottom:16px}
+  h1{font-size:clamp(28px,6vw,54px);margin:4px 0 0;color:var(--acc);letter-spacing:1px}
+  .sub{color:var(--muted);font-size:clamp(15px,2.4vw,19px)}
+  .icons{font-size:clamp(26px,5vw,40px);letter-spacing:8px}
+  .player{background:#000;border:3px solid var(--acc);border-radius:12px;overflow:hidden;box-shadow:0 10px 40px #000a}
+  video{display:block;width:100%;aspect-ratio:16/9;background:#000}
+  .tip{color:var(--muted);text-align:center;margin:8px 0 0;font-size:15px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}}
+  .box{background:var(--panel);border:2px solid var(--line);border-radius:12px;padding:16px 18px;min-width:0}
+  .box h2{margin:0 0 10px;color:var(--acc);font-size:22px}
+  .full{grid-column:1/-1}
+  .chap{display:flex;gap:10px;align-items:baseline;width:100%;text-align:left;font:inherit;font-size:17px;color:var(--ink);background:none;border:0;border-bottom:1px solid var(--line);padding:8px 4px;cursor:pointer}
+  .chap:hover{background:#34224a}
+  .chap.now{background:#4a305e;color:#fff}
+  .chap b{color:var(--acc);min-width:56px;font-variant-numeric:tabular-nums}
+  .skup{margin:10px 0 4px;color:var(--acc);font-weight:800}
+  .druh{font-size:15px;padding:3px 0;border-bottom:1px solid var(--line)}
+  .druh b{color:#fff}
+  .druh span{color:var(--muted)}
+  footer{text-align:center;color:var(--muted);margin-top:28px;font-size:13px}
+  details summary{cursor:pointer;color:var(--acc);font-weight:bold}
+  details ul{margin:8px 0 0;padding-left:20px;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="icons">🏛️👑🕌</div>
+    <h1>BYZANTSKÁ ŘÍŠE</h1>
+    <div class="sub">Město tří jmen s Marcusem · Konstantinopol, Justinián, Hagia Sofia, rozkol 1054, Konstantin a Metoděj, pád 1453 · Arabové a islám · kvíz s tajenkou podle pracovního listu · 21 minut</div>
+  </header>
+
+  <div class="player"><video id="v" src="video/byzanc.mp4" poster="miniatura.jpg" controls preload="metadata" playsinline></video></div>
+  <p class="tip">📱 Na mobilu otoč telefon na šířku a dej celou obrazovku ⛶ · V kvízu zastav video a zkus odpovědět dřív, než uběhne 5 vteřin! · 📝 Test ve čtvrtek 12. 11.</p>
+
+  <div class="grid">
+    <div class="box">
+      <h2>🎬 Kapitoly (klikni a video skočí)</h2>
+      <div id="chapters"></div>
+    </div>
+    <div class="box">
+      <h2>📋 Tahák na test</h2>
+      <div class="skup">Byzantská říše</div>
+      <div class="druh"><b>476</b> <span>– zanikla Západořímská říše, Východořímská existovala dál = Byzantská říše.</span></div>
+      <div class="druh"><b>Hlavní město</b> <span>– Byzantion = Konstantinopol = Cařihrad = dnešní Istanbul (u průlivu Bospor).</span></div>
+      <div class="druh"><b>Nepřetržitý vývoj od starověku</b> <span>– jazyk řečtina; císař měl světskou moc a byl i hlavou církve.</span></div>
+      <div class="druh"><b>Význam pro svět</b> <span>– obchodní uzel: přes Byzanc šel obchod z Asie do Evropy → rozkvět a bohatnutí Konstantinopole.</span></div>
+      <div class="skup">Justinián I. Veliký (6. století)</div>
+      <div class="druh"><b>Největší rozkvět</b> <span>– územní rozmach, císaři chtěli obnovit římské impérium.</span></div>
+      <div class="druh"><b>Zákoník</b> <span>– vzor pro občanské právo v jiných zemích.</span></div>
+      <div class="druh"><b>Hagia Sofia</b> <span>– řecky „chrám Boží moudrosti“ v Konstantinopoli.</span></div>
+      <div class="skup">Církev</div>
+      <div class="druh"><b>1054 – rozkol</b> <span>→ vznik pravoslavné (ortodoxní) církve.</span></div>
+      <div class="druh"><b>Římskokatolická</b> <span>– papež, Řím, bohoslužby v latině, západ.</span></div>
+      <div class="druh"><b>Pravoslavná</b> <span>– patriarcha, Konstantinopol, bohoslužby v řečtině, východ.</span></div>
+      <div class="druh"><b>Ikona</b> <span>– obraz s náboženským námětem, často na dřevěné desce (tajenka!).</span></div>
+      <div class="skup">Kultura a vzdělanost</div>
+      <div class="druh"><b>Dědictví Řecka a Říma</b> <span>– architektura, matematika, dějepis; uchovali díla učenců (Aristoteles, Platón, Pýthagoras), v Evropě zapomenutá či zakázaná.</span></div>
+      <div class="druh"><b>Konstantin a Metoděj</b> <span>– věrozvěsti vyslaní z Byzance k nám (Velká Morava, 863).</span></div>
+      <div class="skup">Konec říše</div>
+      <div class="druh"><b>Turci</b> <span>– útočí od konce 1. tisíciletí, celá staletí, různě úspěšně.</span></div>
+      <div class="druh"><b>1453</b> <span>– Turci dobyli Cařihrad = konec Byzantské říše.</span></div>
+      <div class="skup">Arabové a islám</div>
+      <div class="druh"><b>Arabský poloostrov</b> <span>– hlavně jižní cíp a okolí Rudého moře; poušť, kmeny v oázách; důležití od 7. století.</span></div>
+      <div class="druh"><b>Mohamed</b> <span>– kupec z Mekky; 622 pouť z Mekky do Mediny = počátek muslimského letopočtu.</span></div>
+      <div class="druh"><b>Chalífát</b> <span>– jednotný stát, chalífa = nejvyšší světská i duchovní moc. Ovládli Persii, severní Afriku, Pyrenejský poloostrov; pak se rozpadl na několik chalífátů.</span></div>
+      <div class="druh"><b>1492</b> <span>– Maurové vytlačeni ze Španělska (padla Granada).</span></div>
+      <div class="druh"><b>Obchod s Evropou</b> <span>– keramika, damašek, brokát; rýže, cukrová třtina, citrusy, špenát, bavlna. Papír, střelný prach, šachy, arabské číslice.</span></div>
+      <div class="druh"><b>Věda</b> <span>– chemie, fyzika, astronomie, matematika (algebra), lékařství.</span></div>
+      <div class="druh"><b>Islám</b> <span>– víra v jednoho Boha (monoteismus), věřící = muslimové, Korán = posvátná kniha, mešita (kupole, minaret), nezobrazuje se člověk.</span></div>
+      <div class="druh"><b>5 pilířů</b> <span>– víra v Alláha, modlitba 5× denně, ramadán (půst za denního světla), almužna (pro chudé), pouť do Mekky.</span></div>
+    </div>
+
+    <div class="box full" id="kredbox">
+      <details>
+        <summary>📸 Odkud jsou fotky (volné licence)</summary>
+        <ul id="kredity"></ul>
+      </details>
+    </div>
+  </div>
+  <footer>Video vyrobil 🔱 NEPTUN PRO (s pomocí AI Claude). Kresby, mapy, hudba i hlas jsou vytvořené počítačem.</footer>
+</div>
+
+<script>
+const CHAPTERS = [[0, "Úvod – jedno město, tři jména"], [75, "1. Byzantion (Bospor, Konstantin, hradby)"], [139, "2. Byzantská říše (476, řečtina, císař)"], [208, "3. Obchodní uzel (hedvábí, koření, solidus)"], [272, "4. Justinián I. Veliký (zákoník, Hagia Sofia)"], [371, "5. Rozkol 1054 (katolická × pravoslavná, ikona)"], [444, "6. Kultura a vzdělanost (Konstantin a Metoděj)"], [513, "7. Pád Cařihradu 1453"], [628, "8. Arabové (Mekka, chalífát, číslice)"], [820, "9. Islám (Korán, pět pilířů, mešita)"], [934, "10. Kvíz (tajenka a 13 otázek)"]];
+const KREDITY = ["Hagia Sophia and Eminonu - Senol Demir (CC BY 2.0)","Boğaziçi Köprüsü - Aerial view - Carlos Delgado (CC BY-SA 3.0)","0 Gaius Flavius Valerius Constantinus, Palatino.jpg - Wilfredor (CC0)","Theodosian Walls of Constantinople, Istanbul (24053561188).jpg - Carole Raddato from FRANKFURT, Germany (CC BY-SA 2.0)","The mosaic of Emperor Justinian and his retinue - Carole Raddato (CC BY-SA 2.0)","Wien Nationalbibliothek Dioskurides-4779 - Isiwal (CC BY-SA 4.0)","<div class='fn'> Samite fragments with double-headed eagles, from the tomb of Saint Bernard Calvo</div> -  (CC0)","Dried chillies in Spice Bazaar Istanbul - User:Rachel Dalby photographer (CC BY-SA 4.0)","<div class='fn'> Solidus of Justinian II</div> -  (CC0)","Hagia Sophia (8395709547).jpg - Jorge Láscar from Australia (CC BY 2.0)","Hagia Sophia - Ayasofya - Αγία Σοφία - fusion-of-horizons (CC BY 2.0)","Deesis Mosaic - Hagia Sophia - José Luiz (CC BY-SA 3.0)","Basilica di San Pietro in Vaticano September 2015-1a.jpg - Alvesgaspar (CC BY-SA 4.0)","Cathedral of Saint Sava, Belgrade - George Groutas (CC BY 2.0)","Jesus Christ 3 - JoeyEspo984 (CC BY-SA 4.0)","0 Chambre de Raphaël - École d'Athènes - Musées du Vatican.JPG - Raphael (Public domain)","Aristoteles Louvre.jpg - Eric Gaba (User:Sting) (CC BY-SA 2.5)","SvetiSedmochislenitsi-3.jpg - MrPanyGoff (CC BY 3.0)","The Kiev Missal, faksimile, 10th c, exh. Benedictines NG Prague, 150584.jpg - Zde (CC BY-SA 4.0)","Conquest of Constantinople, Zonaro.jpg - Fausto Zonaro (Public domain)","Bellini, Gentile - Portrait of Mehmed II - National Gallery, London.jpg - Gentile Bellini (Public domain)","Dardanelles Gun Turkish Bronze.jpg - Tim Sheerman-Chase (CC BY 2.0)","Alhambra Granada panorama - Robert Bovington (CC BY-SA 4.0)","Court of the Lions, Alhambra - Andrew and Annemarie (CC BY-SA 2.0)","Flowery Wallpaper - wwarby (CC BY 2.0)","Astrolabe 1230 Damascus 6316.JPG -  (CC BY-SA 3.0)","Folio of Qur'an manuscript in gold Kufic script, West Asia or North Africa, late 8th-early 9th cent., Museum of Islamic Art, Doha, Qatar - Prof. Mortel (CC BY 2.0)","Blue Mosque Istanbul - gags9999 (CC BY 2.0)","Mezquita Azul, Estambul, Turquía, 2024-09-30, DD 48-50 HDR.jpg - Diego Delso (CC BY-SA 4.0)"];
+const v = document.getElementById('v');
+const zvukZap = () => { v.muted = false; v.defaultMuted = false; v.removeAttribute('muted'); if (v.volume < 0.05) v.volume = 1; };
+zvukZap(); v.addEventListener('loadedmetadata', zvukZap); v.addEventListener('play', zvukZap);
+const fmt = s => Math.floor(s / 60) + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+const box = document.getElementById('chapters');
+CHAPTERS.forEach(([t, name]) => {
+  const b = document.createElement('button'); b.className = 'chap'; b.dataset.t = t;
+  b.innerHTML = '<b>' + fmt(t) + '</b><span></span>'; b.children[1].textContent = name;
+  b.onclick = () => { const go = () => { zvukZap(); v.currentTime = t; v.play().catch(() => {}); }; if (v.readyState >= 1) go(); else { v.addEventListener('loadedmetadata', go, { once: true }); v.load(); } v.scrollIntoView({ behavior: 'smooth', block: 'center' }); };
+  box.appendChild(b);
+});
+v.addEventListener('timeupdate', () => { let cur = null; document.querySelectorAll('.chap').forEach(b => { b.classList.remove('now'); if (+b.dataset.t <= v.currentTime) cur = b; }); if (cur) cur.classList.add('now'); });
+if (!KREDITY.length) document.getElementById('kredbox').remove();
+else { const ul = document.getElementById('kredity'); KREDITY.forEach(k => { const li = document.createElement('li'); li.textContent = k; ul.appendChild(li); }); }
+</script>
+<script src="/videa/prehravac.js"></script>
+</body>
+</html>

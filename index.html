@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="cs" data-verze="42">
+<html lang="cs" data-verze="44">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -104,6 +104,13 @@
   <div id="testy"></div>
   <h2 class="sekce" id="vse-nadpis">🎬 Všechna videa</h2>
 
+  <a class="card" data-test="2026-11-12" style="border-color:#c89af0" href="https://luciehavrankovacz-hub.github.io/videa/byzanc/">
+    <div class="em">🏛️</div>
+    <div class="tx"><p class="tt">Byzantská říše – Město tří jmen</p>
+      <div class="ds">Konstantinopol a Cařihrad, Justinián a Hagia Sofia, rozkol 1054, Konstantin a Metoděj, pád 1453 + Arabové a islám, kvíz s tajenkou IKONA</div>
+      <div class="meta">21 minut · průvodce Marcus · NEPTUN PRO</div></div>
+    <div class="go" style="background:#c89af0">PUSTIT</div>
+  </a>
   <a class="card" data-test="2026-11-03" style="border-color:#5ad0a0" href="https://luciehavrankovacz-hub.github.io/zlomky/">
     <div class="em">🧮</div>
     <div class="tx"><p class="tt">Zlomky a desetinná čísla – trénink na čtvrtletku</p>
@@ -280,7 +287,7 @@
 <script>
 // Shorty: ke každému videu vpravo svislý náhled jeho Shortu (shorts/<klic>.mp4 + .jpg), přehraje se přímo tady
 (function () {
-  const SHORTY = { 'zlomky': ['zlomky'], 'sahel': ['sahel'], 'ryby': ['ryby'], 'anglictina-unit5': ['anglictina-unit5'], 'stehovani-narodu': ['stredovek', 'stehovani-narodu'], 'strunatci': ['strunatci'],
+  const SHORTY = { 'byzanc': ['byzanc'], 'zlomky': ['zlomky'], 'sahel': ['sahel'], 'ryby': ['ryby'], 'anglictina-unit5': ['anglictina-unit5'], 'stehovani-narodu': ['stredovek', 'stehovani-narodu'], 'strunatci': ['strunatci'],
     'poznavacka-hmyzu': ['poznavacka-hmyzu'], 'poznavacka-bezobratlych': ['poznavacka-bezobratlych'], 'krecik-dzungarsky': ['krecik-dzungarsky'],
     'afrika': ['afrika'], 'evropa': ['evropa'], 'staroveky-rim': ['staroveky-rim'], 'literarni-zanry': ['literarni-zanry'] };
   const sv = document.getElementById('sv'), v = sv.querySelector('video'), bar = sv.querySelector('.pr i');
@@ -292,7 +299,7 @@
   sv.addEventListener('click', zavri); sv.querySelector('.x').addEventListener('click', zavri);
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && sv.classList.contains('on')) zavri(); });
   document.querySelectorAll('a.card').forEach(c => {
-    const m = c.href.match(/github\.io\/([^\/]+)\//); const s = m && SHORTY[m[1]]; if (!s) return;
+    const m = c.href.match(/github\.io\/(?:videa\/)?([^\/]+)\//); const s = m && SHORTY[m[1]]; if (!s) return;
     const r = document.createElement('div'); r.className = 'radek'; c.parentNode.insertBefore(r, c); r.appendChild(c);
     const sl = document.createElement('div'); sl.className = 'shorty'; r.appendChild(sl);
     s.forEach(k => { const b = document.createElement('button'); b.className = 'short'; b.title = 'Pustit Short'; b.style.backgroundImage = "url('shorts/" + k + ".jpg')"; b.innerHTML = '<b>▶</b><span>SHORT</span>'; b.addEventListener('click', () => otevri(k)); sl.appendChild(b); });
