@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Slova s časovým příznakem</title>
+<style>
+  :root{--bg:#1a1208;--panel:#2a1e10;--line:#4a3820;--acc:#f2c14a;--ink:#f3eefa;--muted:#b8a9c8}
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(ellipse at top,#3a2a14,var(--bg) 60%);color:var(--ink);font-family:'Segoe UI',Arial,sans-serif;line-height:1.5}
+  .wrap{max-width:1100px;margin:0 auto;padding:22px 16px 60px}
+  header{text-align:center;margin-bottom:16px}
+  h1{font-size:clamp(28px,6vw,54px);margin:4px 0 0;color:var(--acc);letter-spacing:1px}
+  .sub{color:var(--muted);font-size:clamp(15px,2.4vw,19px)}
+  .icons{font-size:clamp(26px,5vw,40px);letter-spacing:8px}
+  .player{background:#000;border:3px solid var(--acc);border-radius:12px;overflow:hidden;box-shadow:0 10px 40px #000a}
+  video{display:block;width:100%;aspect-ratio:16/9;background:#000}
+  .tip{color:var(--muted);text-align:center;margin:8px 0 0;font-size:15px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}}
+  .box{background:var(--panel);border:2px solid var(--line);border-radius:12px;padding:16px 18px;min-width:0}
+  .box h2{margin:0 0 10px;color:var(--acc);font-size:22px}
+  .full{grid-column:1/-1}
+  .chap{display:flex;gap:10px;align-items:baseline;width:100%;text-align:left;font:inherit;font-size:17px;color:var(--ink);background:none;border:0;border-bottom:1px solid var(--line);padding:8px 4px;cursor:pointer}
+  .chap:hover{background:#3a2a18}
+  .chap.now{background:#4a3620;color:#fff}
+  .chap b{color:var(--acc);min-width:56px;font-variant-numeric:tabular-nums}
+  .skup{margin:10px 0 4px;color:var(--acc);font-weight:800}
+  .druh{font-size:15px;padding:3px 0;border-bottom:1px solid var(--line)}
+  .druh b{color:#fff}
+  .druh span{color:var(--muted)}
+  footer{text-align:center;color:var(--muted);margin-top:28px;font-size:13px}
+  details summary{cursor:pointer;color:var(--acc);font-weight:bold}
+  details ul{margin:8px 0 0;padding-left:20px;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="icons">⏳📜🤖</div>
+    <h1>SLOVA S ČASOVÝM PŘÍZNAKEM</h1>
+    <div class="sub">stroj času s panem Kalamářem · archaismy, historismy, neologismy · synonyma, antonyma, homonyma, homofon a homograf · kvíz ze cvičení · 15 minut</div>
+  </header>
+
+  <div class="player"><video id="v" src="video/slova.mp4" poster="miniatura.jpg" controls preload="metadata" playsinline></video></div>
+  <p class="tip">📱 Na mobilu otoč telefon na šířku a dej celou obrazovku ⛶ · V kvízu zastav video a zkus odpovědět dřív, než uběhne 5 vteřin! · 📝 Písemka v úterý 10. 11.</p>
+
+  <div class="grid">
+    <div class="box">
+      <h2>🎬 Kapitoly (klikni a video skočí)</h2>
+      <div id="chapters"></div>
+    </div>
+    <div class="box">
+      <h2>📋 Tahák na písemku</h2>
+      <div class="skup">Slova s časovým příznakem</div>
+      <div class="druh"><b>Archaismy</b> <span>– zastaralá slova; věc existuje dál, používáme novější synonymum: oř, komoň = kůň · silozpyt = fyzika · lučba = chemie · vrkoč = cop · lyžník = lyžař · drahný = dlouhý · anžto = protože · jícha = omáčka · batalion = prapor · hokynářský krám = obchod se smíšeným zbožím · jinoch = mladý muž</span></div>
+      <div class="druh"><b>Historismy</b> <span>– slova pro věci a skutečnosti, které zanikly; nemají novodobou variantu: alchymie, cep, palcát, žentour, desátek, husité, čeledín, pacholek, leníci, bambitka, žebračenky</span></div>
+      <div class="druh"><b>Neologismy</b> <span>– nová slova, v jazyce krátce, často přejatá z cizích jazyků, gramatika nemusí být ustálená: ChatBot, notebook, internet, displej, satelit, (vrtulník)</span></div>
+      <div class="druh"><b>Jak poznat A × H</b> <span>– existuje ta věc dnes? ANO = archaismus, NE = historismus.</span></div>
+      <div class="druh"><b>Příznak se mění</b> <span>– v čase se může změnit, často kvůli rychlému technickému pokroku (videopřehrávač, bicykl).</span></div>
+      <div class="skup">Synonyma, antonyma, homonyma</div>
+      <div class="druh"><b>Synonyma</b> <span>– slova stejného či podobného významu (hezký – pěkný, najdete – naleznete, sirka – zápalka). Mohou být neutrální nebo citově zabarvená (lichotivá, hanlivá): chlapec, kluk, hoch, hošík, klouček, klučina, chlapík, mládenec, jinoch (archaismus).</span></div>
+      <div class="druh"><b>Antonyma = opozita</b> <span>– slova opačného významu (černý – bílý, rychle – pomalu, vysoký – nízký, zap. – vyp., měkký – tvrdý, snadno – těžko).</span></div>
+      <div class="druh"><b>Homonyma</b> <span>– slova souzvučná: stejně zní, významově spolu nesouvisí (obloha, lištička = malá liška / malá lišta).</span></div>
+      <div class="druh"><b>Homofon</b> <span>– vyslovuje se stejně, píše se jinak (vír – výr, bít – být).</span></div>
+      <div class="druh"><b>Homograf</b> <span>– píše se stejně, vyslovuje se jinak (baby – miminko / dvě baby).</span></div>
+    </div>
+
+    <div class="box full" id="kredbox">
+      <details>
+        <summary>📸 Odkud jsou fotky (volné licence)</summary>
+        <ul id="kredity"></ul>
+      </details>
+    </div>
+  </div>
+  <footer>Video vyrobil 🔱 NEPTUN PRO (s pomocí AI Claude). Kresby, hudba i hlas jsou vytvořené počítačem.</footer>
+</div>
+<script>
+const CHAPTERS = [[0, "Úvod – Slovostroj pana Kalamáře"], [67, "1. Archaismy (oř, lučba, jícha)"], [170, "2. Historismy (cep, palcát, alchymie)"], [308, "3. Neologismy (ChatBot, internet)"], [388, "4. Synonyma (chlapec, citové zabarvení)"], [453, "5. Antonyma (opozita)"], [481, "6. Homonyma, homofon, homograf"], [539, "7. Pracovní list (mangan a hořčík)"], [592, "8. Kvíz (11 otázek ze cvičení)"]];
+const KREDITY = ["Strahov Monastery 001.jpg - Y.Shishido (CC BY-SA 3.0)","Les Très Riches Heures du duc de Berry juin.jpg - Limbourg brothers / Barthélemy d'Eyck / Jean Colombe (Public domain)","Joseph Wright of Derby The Alchemist.jpg - Joseph Wright of Derby (Public domain)","Flintlock pistols 15 - Elsie esq. (CC BY 2.0)","Dreschflegel.jpg - Schweitzer (Public domain)","East Texas Oil Museum July 2018 05 (Arp General Store).jpg - Michael Barera (CC BY-SA 4.0)","Magnesium ribbon burning.jpg - Capt. John Yossarian (CC BY-SA 3.0)","Husitsky bojovy vuz replika.jpg - Ludek (CC BY-SA 3.0)","Jarmark Świętojański Kraków 20140621 4317.jpg - Jakub Hałun (CC BY-SA 4.0)","Rød ræv (Vulpes vulpes) - Malene Thyssen (CC BY 2.5)","Apple Laptop Computer with Headphones, Camera, and Open Notebook - Image Catalog (CC0)","Streitkolben mit Schlagblättern -  (CC0)","Artist concept of the STS-43 Tracking and Data Relay Satellite E (TDRS-E) - NASA (JSC) (Public domain (NASA))","Funai VHS Video recorder 2000s 1 - Digitalsignal (CC BY-SA 3.0)","Naruto Whirlpools taken 4-21-2008 - Hellbuny (CC BY-SA 3.0)","Helicopter flying over Idalion - George M. Groutas (CC BY 2.0)","Eagle Owl (Bubo bubo) - Peter O'Connor aka anemoneprojectors (CC BY-SA 2.0)","Burning match head - Francesco Schiavone (CC BY 4.0)","NIM Horse gin 2554 - ClemRutter (CC BY-SA 4.0)","Clouds in the sky in August 2014.JPG - Jakec (CC BY-SA 4.0)"];
+const v = document.getElementById('v');
+const zvukZap = () => { v.muted = false; v.defaultMuted = false; v.removeAttribute('muted'); if (v.volume < 0.05) v.volume = 1; };
+zvukZap(); v.addEventListener('loadedmetadata', zvukZap); v.addEventListener('play', zvukZap);
+const fmt = s => Math.floor(s / 60) + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+const box = document.getElementById('chapters');
+CHAPTERS.forEach(([t, name]) => {
+  const b = document.createElement('button'); b.className = 'chap'; b.dataset.t = t;
+  b.innerHTML = '<b>' + fmt(t) + '</b><span></span>'; b.children[1].textContent = name;
+  b.onclick = () => { const go = () => { zvukZap(); v.currentTime = t; v.play().catch(() => {}); }; if (v.readyState >= 1) go(); else { v.addEventListener('loadedmetadata', go, { once: true }); v.load(); } v.scrollIntoView({ behavior: 'smooth', block: 'center' }); };
+  box.appendChild(b);
+});
+v.addEventListener('timeupdate', () => { let cur = null; document.querySelectorAll('.chap').forEach(b => { b.classList.remove('now'); if (+b.dataset.t <= v.currentTime) cur = b; }); if (cur) cur.classList.add('now'); });
+if (!KREDITY.length) document.getElementById('kredbox').remove();
+else { const ul = document.getElementById('kredity'); KREDITY.forEach(k => { const li = document.createElement('li'); li.textContent = k; ul.appendChild(li); }); }
+</script>
+<script src="/videa/prehravac.js"></script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="cs" data-verze="44">
+<html lang="cs" data-verze="45">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -103,6 +103,14 @@
 
   <div id="testy"></div>
   <h2 class="sekce" id="vse-nadpis">🎬 Všechna videa</h2>
+
+  <a class="card" data-test="2026-11-10" style="border-color:#f2c14a" href="https://luciehavrankovacz-hub.github.io/videa/slova/">
+    <div class="em">⏳</div>
+    <div class="tx"><p class="tt">Slova s časovým příznakem</p>
+      <div class="ds">stroj času: archaismy, historismy a neologismy + synonyma, antonyma, homonyma, homofon a homograf, kvíz ze cvičení</div>
+      <div class="meta">14 minut · průvodce pan Kalamář · NEPTUN PRO</div></div>
+    <div class="go" style="background:#f2c14a">PUSTIT</div>
+  </a>
 
   <a class="card" data-test="2026-11-12" style="border-color:#c89af0" href="https://luciehavrankovacz-hub.github.io/videa/byzanc/">
     <div class="em">🏛️</div>
@@ -287,7 +295,7 @@
 <script>
 // Shorty: ke každému videu vpravo svislý náhled jeho Shortu (shorts/<klic>.mp4 + .jpg), přehraje se přímo tady
 (function () {
-  const SHORTY = { 'byzanc': ['byzanc'], 'zlomky': ['zlomky'], 'sahel': ['sahel'], 'ryby': ['ryby'], 'anglictina-unit5': ['anglictina-unit5'], 'stehovani-narodu': ['stredovek', 'stehovani-narodu'], 'strunatci': ['strunatci'],
+  const SHORTY = { 'slova': ['slova'], 'byzanc': ['byzanc'], 'zlomky': ['zlomky'], 'sahel': ['sahel'], 'ryby': ['ryby'], 'anglictina-unit5': ['anglictina-unit5'], 'stehovani-narodu': ['stredovek', 'stehovani-narodu'], 'strunatci': ['strunatci'],
     'poznavacka-hmyzu': ['poznavacka-hmyzu'], 'poznavacka-bezobratlych': ['poznavacka-bezobratlych'], 'krecik-dzungarsky': ['krecik-dzungarsky'],
     'afrika': ['afrika'], 'evropa': ['evropa'], 'staroveky-rim': ['staroveky-rim'], 'literarni-zanry': ['literarni-zanry'] };
   const sv = document.getElementById('sv'), v = sv.querySelector('video'), bar = sv.querySelector('.pr i');
