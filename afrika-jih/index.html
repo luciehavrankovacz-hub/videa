@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Velký závod napříč Afrikou</title>
+<style>
+  :root{--bg:#1a1208;--panel:#2a1e10;--line:#4a3820;--acc:#f0a040;--ink:#f3eefa;--muted:#c8b8a0}
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(ellipse at top,#3a2a14,var(--bg) 60%);color:var(--ink);font-family:'Segoe UI',Arial,sans-serif;line-height:1.5}
+  .wrap{max-width:1100px;margin:0 auto;padding:22px 16px 60px}
+  header{text-align:center;margin-bottom:16px}
+  .studio{color:#f2c14a;font-weight:900;letter-spacing:3px;font-size:clamp(12px,2vw,15px)}
+  h1{font-size:clamp(28px,6vw,54px);margin:4px 0 0;color:var(--acc);letter-spacing:1px;line-height:1.1}
+  .sub{color:var(--muted);font-size:clamp(15px,2.4vw,19px)}
+  .icons{font-size:clamp(26px,5vw,40px);letter-spacing:8px}
+  .player{background:#000;border:3px solid var(--acc);border-radius:12px;overflow:hidden;box-shadow:0 10px 40px #000a}
+  video{display:block;width:100%;aspect-ratio:16/9;background:#000}
+  .tip{color:var(--muted);text-align:center;margin:8px 0 0;font-size:15px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}}
+  .box{background:var(--panel);border:2px solid var(--line);border-radius:12px;padding:16px 18px;min-width:0}
+  .box h2{margin:0 0 10px;color:var(--acc);font-size:22px}
+  .full{grid-column:1/-1}
+  .chap{display:flex;gap:10px;align-items:baseline;width:100%;text-align:left;font:inherit;font-size:17px;color:var(--ink);background:none;border:0;border-bottom:1px solid var(--line);padding:8px 4px;cursor:pointer}
+  .chap:hover{background:#3a2a18}
+  .chap.now{background:#4a3620;color:#fff}
+  .chap b{color:var(--acc);min-width:56px;font-variant-numeric:tabular-nums}
+  .skup{margin:10px 0 4px;color:var(--acc);font-weight:800}
+  .druh{font-size:15px;padding:3px 0;border-bottom:1px solid var(--line)}
+  .druh b{color:#fff}
+  .druh span{color:var(--muted)}
+  footer{text-align:center;color:var(--muted);margin-top:28px;font-size:13px}
+  details summary{cursor:pointer;color:var(--acc);font-weight:bold}
+  details ul{margin:8px 0 0;padding-left:20px;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="studio">🎬 DANOVY FILMY × 🔱 NEPTUN PRO</div>
+    <div class="icons">🌍🦏🏆</div>
+    <h1>VELKÝ ZÁVOD NAPŘÍČ AFRIKOU</h1>
+    <div class="sub">Střední, Východní a Jižní Afrika · Tom a Ema závodí, Kapitán Glóbus se ptá, baron Rufus podvádí · tahák a kvíz 18 otázek · 23 minut</div>
+  </header>
+
+  <div class="player"><video id="v" src="video/afrika-jih.mp4" poster="miniatura.jpg" controls preload="metadata" playsinline></video></div>
+  <p class="tip">📱 Na mobilu otoč telefon na šířku a dej celou obrazovku ⛶ · V kvízu zastav video a zkus odpovědět dřív, než uběhne 5 vteřin! · 📝 Test ve čtvrtek 19. 11.</p>
+
+  <div class="grid">
+    <div class="box">
+      <h2>🎬 Kapitoly (klikni a video skočí)</h2>
+      <div id="chapters"></div>
+    </div>
+    <div class="box">
+      <h2>📋 Tahák na test</h2>
+      <div class="skup">Střední Afrika</div>
+      <div class="druh"><b>18 států</b> <span>– např. Senegal, Libérie, Pobřeží slonoviny, Nigérie, Středoafrická republika, Kongo</span></div>
+      <div class="druh"><b>Kongo</b> <span>– nejvodnatější řeka Afriky, 2. nejvodnatější na světě, 4 667 km</span></div>
+      <div class="druh"><b>Příroda</b> <span>– na severu Sahara → savany → podél Konga tropické deštné lesy; čím víc na jih, tím víc srážek</span></div>
+      <div class="druh"><b>Hospodářství</b> <span>– banány, kakao, káva, kaučuk · vzácné stromy eben a mahagon · ropa, diamanty, zlato, bauxit, fosfáty</span></div>
+      <div class="druh"><b>Lidé</b> <span>– ve vnitrozemí Pygmejové · Libérie = potomci otroků z Ameriky</span></div>
+      <div class="druh"><b>Problémy</b> <span>– nedostatek potravin a vody, nemoci, negramotnost, hodně dětí → pomáhá UNICEF</span></div>
+      <div class="skup">Východní Afrika</div>
+      <div class="druh"><b>11 států</b> <span>– odděluje ji velká příkopová propadlina</span></div>
+      <div class="druh"><b>Kilimandžáro</b> <span>– 5 895 m n. m. · Mount Kenya · srážky na západních svazích</span></div>
+      <div class="druh"><b>Jezera</b> <span>– Viktoriino, Tanganika, Malawi · pramení tu Nil</span></div>
+      <div class="druh"><b>Hospodářství</b> <span>– káva, čaj, bavlna, banány · turismus · politicky stabilní jen Tanzanie</span></div>
+      <div class="druh"><b>Olduvajská rokle</b> <span>– nejstarší kosterní ostatky člověka · safari v Serengeti · pytláci (sloni, nosorožci)</span></div>
+      <div class="druh"><b>Slavní</b> <span>– Zanzibar: Freddie Mercury · Etiopie: maratonec Kenenisa Bekele</span></div>
+      <div class="skup">Jižní Afrika</div>
+      <div class="druh"><b>12 států</b> <span>– např. JAR, Namibie · ostrovy Madagaskar, Mauricius, Seychely</span></div>
+      <div class="druh"><b>Povrch a vodstvo</b> <span>– savany → pouště Kalahari a Namib · Dračí hory · řeky Zambezi (Viktoriiny vodopády), Orange, Limpopo</span></div>
+      <div class="druh"><b>Podnebí a příroda</b> <span>– sever tropické, jih subtropické · baobab, opuncie, akácie</span></div>
+      <div class="druh"><b>Lidé</b> <span>– Sanové = Křováci (Kalahari) · Búrové = potomci holandských kolonistů · Zulové · Malgašové · apartheid = oddělování lidí podle barvy pleti</span></div>
+      <div class="druh"><b>Hospodářství</b> <span>– pšenice, kukuřice, citrusy, víno · zlato, diamanty, uhlí</span></div>
+    </div>
+
+    <div class="box full" id="kredbox">
+      <details>
+        <summary>📸 Odkud jsou fotky (volné licence)</summary>
+        <ul id="kredity"></ul>
+      </details>
+    </div>
+  </div>
+  <footer>Film natočili 🎬 DANOVY FILMY a 🔱 NEPTUN PRO (s pomocí AI Claude). Postavy, hlasy a 3D svět jsou vytvořené počítačem, fotky jsou skutečné. Hudba: Kevin MacLeod (incompetech.com, CC BY 4.0).</footer>
+</div>
+<script>
+const CHAPTERS = [[0, "Znělky DANOVY FILMY a NEPTUN PRO"], [63, "Start závodu – Kapitán Glóbus a baron Rufus"], [126, "1. Střední Afrika – 18 států a povrch"], [177, "Prales a přírodní podmínky"], [229, "Řeka Kongo + kontrolní otázka"], [267, "Lidé: Libérie, Pygmejové, UNICEF"], [321, "Hospodářství: kakao, eben, mahagon, nerosty"], [374, "2. Východní Afrika – propadlina, Kilimandžáro"], [427, "Jezera a Nil"], [456, "Serengeti a strážce Amani"], [525, "Olduvajská rokle a hospodářství"], [579, "Freddie Mercury a Kenenisa Bekele"], [597, "Kontrolní otázka 2"], [615, "3. Jižní Afrika – 12 států"], [649, "Vodopády a příroda Jihu"], [706, "Kalahari – dopadení pytláka"], [760, "Lidé: Búrové, Zulové, apartheid"], [820, "Cíl závodu"], [850, "📋 Tahák na test"], [969, "❓ Kvíz – 18 otázek"]];
+const KREDITY = ["Vachellia tortilis subsp. heteracantha 50D 2272 - SAplants (CC BY-SA 4.0)","South Africa-Johannesburg-Apartheid Museum001 - NJR ZA (CC BY-SA 3.0)","The Avenue of the Baobabs in Madagascar near the city of Morondava at sunrise (34) - Hanay (CC BY-SA 4.0)","Leichtathletik WM 2009 Berlin - az1172 (CC BY-SA 2.0)","Big Hole Kimberley - Rudolph Botha (CC BY-SA 3.0)","Kenya-Tealand-Near-Kericho-2012 - Bjørn Christian Tørrissen (CC BY-SA 3.0)","Colorado Diamond Crystal, Freedom Diamond, Uncle Sam Diamond, Canary Diamond - Smithsonian Institution (Public domain)","Clouds in the drakensberge 03 - Thomas Fuhrmann (CC BY-SA 4.0)","Cacao Tree (Theobroma cacao) green pods - berniedup (CC BY-SA 2.0)","Kalahari Dunes, Namibia (3997934029) - Frank Vassen from Brussels, Belgium (CC BY 2.0)","Koh Chang, Thailand, Rubber tree, Latex - Vyacheslav Argenberg (CC BY 4.0)","Coffea canephora 1 at Aanakkulam - Jeevan Jose, Kerala, India (CC BY-SA 4.0)","Mount Kilimanjaro at Sunset (Explored) - *rboed* (CC BY 2.0)","Congo River from Kinshasa in Democratic Republic of the Congo (DRC) - EdwinAlden.1995 (CC BY-SA 4.0)","CGI Liberia Flag - Aerra Carnicom (CC BY-SA 4.0)","WhiteMahogany (3) - MrPanyGoff (CC BY-SA 3.0)","Village Kids, Madagascar (21214057094) - Rod Waddington (CC BY-SA 2.0)","Freddie Mercury performing in New Haven, CT, November 1977 - Carl Lender (CC BY-SA 3.0)","Mount Kenya - No machine-readable author provided. Hdahlmo~commonswiki assumed (based on copyright claims). (CC BY 2.5)","Sossusvlei Dune Namib Desert Namibia Luca Galuzzi 2004 - Luca Galuzzi (Lucag) (CC BY-SA 2.5)","Mahatma Ghandi Monument at the Source of the Nile, Jinja - Chapelle musa (CC BY-SA 4.0)","Diceros bicornis - profile - Etosha 2014 - Yathin S Krishnappa (CC BY-SA 3.0)","Olduvai Gorge or Oldupai Gorge - Noel Feans (CC BY 2.0)","Pan paniscus (female) - Hans Hillewaert (CC BY-SA 4.0)","Indian Fig - Opuntia ficus-indica -  (CC BY-SA 3.0)","Wildebeest Migration in Serengeti National Park, Tanzania - Daniel Rosengren (CC BY 4.0)","Psittacus erithacus timneh-parrot on cage - Peter Fuchs (CC BY-SA 2.0)","Rainforest - Ituri (20874628148) - MONUSCO Photos (CC BY-SA 2.0)","Keiyo of the Great Rift Valley - Kimeli01 (CC BY-SA 4.0)","Khomani San people, Kalahari, Northern Cape, South Africa (20543494255) - South African Tourism from South Africa (CC BY 2.0)","Serengeti - plains - tommorphy (CC BY 2.0)","African bush elephant (Loxodonta africana) with calf Serengeti 2 - Charles J. Sharp (CC BY-SA 4.0)","Scene in Fishing Village along Shore of Lake Victoria - Entebbe - Uganda - Adam Jones, Ph.D. (CC BY-SA 3.0)","Stellenbosch Vineyards - Gemma Longman (CC BY 2.0)","Cataratas Victoria, Zambia-Zimbabue, 2018-07-27, DD 30-34 PAN - Diego Delso (CC BY-SA 4.0)","Mosque, Stone Town, Zanzibar - Jonathan Stonehouse (CC BY 2.0)","Equus quagga - Joachim Huber (CC BY-SA 2.0)","Rothschild\u0027s giraffe (Giraffa camelopardalis rothschildi) - Murchison Falls National Park - Thomas Fuhrmann (CC BY-SA 4.0)","Zulu Dancers, South Africa - gbaku (CC BY-SA 2.0)","Bitobolo Village - Tyron Amanpour (CC BY-SA 4.0)"];
+const v = document.getElementById('v');
+const zvukZap = () => { v.muted = false; v.defaultMuted = false; v.removeAttribute('muted'); if (v.volume < 0.05) v.volume = 1; };
+zvukZap(); v.addEventListener('loadedmetadata', zvukZap); v.addEventListener('play', zvukZap);
+const fmt = s => Math.floor(s / 60) + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+const box = document.getElementById('chapters');
+CHAPTERS.forEach(([t, name]) => {
+  const b = document.createElement('button'); b.className = 'chap'; b.dataset.t = t;
+  b.innerHTML = '<b>' + fmt(t) + '</b><span></span>'; b.children[1].textContent = name;
+  b.onclick = () => { const go = () => { zvukZap(); v.currentTime = t; v.play().catch(() => {}); }; if (v.readyState >= 1) go(); else { v.addEventListener('loadedmetadata', go, { once: true }); v.load(); } v.scrollIntoView({ behavior: 'smooth', block: 'center' }); };
+  box.appendChild(b);
+});
+v.addEventListener('timeupdate', () => { let cur = null; document.querySelectorAll('.chap').forEach(b => { b.classList.remove('now'); if (+b.dataset.t <= v.currentTime) cur = b; }); if (cur) cur.classList.add('now'); });
+if (!KREDITY.length) document.getElementById('kredbox').remove();
+else { const ul = document.getElementById('kredity'); KREDITY.forEach(k => { const li = document.createElement('li'); li.textContent = k; ul.appendChild(li); }); }
+</script>
+<script src="/videa/prehravac.js"></script>
+</body>
+</html>

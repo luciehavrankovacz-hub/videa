@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="cs" data-verze="45">
+<html lang="cs" data-verze="46">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -103,6 +103,14 @@
 
   <div id="testy"></div>
   <h2 class="sekce" id="vse-nadpis">🎬 Všechna videa</h2>
+
+  <a class="card" data-test="2026-11-19" style="border-color:#f0a040" href="https://luciehavrankovacz-hub.github.io/videa/afrika-jih/">
+    <div class="em">🌍</div>
+    <div class="tx"><p class="tt">Velký závod napříč Afrikou – Střed, Východ a Jih</p>
+      <div class="ds">film: Tom a Ema závodí přes Afriku, baron Rufus je pytlák · 18, 11 a 12 států, Kongo, Kilimandžáro, Serengeti, Kalahari, Búrové a apartheid · tahák + kvíz 18 otázek</div>
+      <div class="meta">23 minut · Kapitán Glóbus · DANOVY FILMY × NEPTUN PRO</div></div>
+    <div class="go" style="background:#f0a040">PUSTIT</div>
+  </a>
 
   <a class="card" data-test="2026-11-10" style="border-color:#f2c14a" href="https://luciehavrankovacz-hub.github.io/videa/slova/">
     <div class="em">⏳</div>
@@ -295,7 +303,7 @@
 <script>
 // Shorty: ke každému videu vpravo svislý náhled jeho Shortu (shorts/<klic>.mp4 + .jpg), přehraje se přímo tady
 (function () {
-  const SHORTY = { 'slova': ['slova'], 'byzanc': ['byzanc'], 'zlomky': ['zlomky'], 'sahel': ['sahel'], 'ryby': ['ryby'], 'anglictina-unit5': ['anglictina-unit5'], 'stehovani-narodu': ['stredovek', 'stehovani-narodu'], 'strunatci': ['strunatci'],
+  const SHORTY = { 'afrika-jih': ['afrika-jih'], 'slova': ['slova'], 'byzanc': ['byzanc'], 'zlomky': ['zlomky'], 'sahel': ['sahel'], 'ryby': ['ryby'], 'anglictina-unit5': ['anglictina-unit5'], 'stehovani-narodu': ['stredovek', 'stehovani-narodu'], 'strunatci': ['strunatci'],
     'poznavacka-hmyzu': ['poznavacka-hmyzu'], 'poznavacka-bezobratlych': ['poznavacka-bezobratlych'], 'krecik-dzungarsky': ['krecik-dzungarsky'],
     'afrika': ['afrika'], 'evropa': ['evropa'], 'staroveky-rim': ['staroveky-rim'], 'literarni-zanry': ['literarni-zanry'] };
   const sv = document.getElementById('sv'), v = sv.querySelector('video'), bar = sv.querySelector('.pr i');
@@ -338,7 +346,7 @@
   document.getElementById('dnes').textContent = 'Dnes je ' + dny[dnes.getDay()] + ' ' + dnes.getDate() + '. ' + (dnes.getMonth() + 1) + '. ' + dnes.getFullYear();
   const box = document.getElementById('testy'), vseNadpis = document.getElementById('vse-nadpis');
   const ls = { get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) { } } };
-  const slug = c => { const m = c.href.match(/github\.io\/([^\/?#]+)/); return m ? m[1] : c.href; };
+  const slug = c => { const m = c.href.match(/github\.io\/(?:videa\/)?([^\/?#]+)/); return m ? m[1] : c.href; };
   const karty = [...document.querySelectorAll('a.card')];
   karty.forEach(c => { c.dataset.html = c.dataset.test || ''; const mv = c.closest('.radek') || c; const k = document.createComment('k'); mv.before(k); c._mv = mv; c._kotva = k; });
   let web = {};       // terminy.json z webu
